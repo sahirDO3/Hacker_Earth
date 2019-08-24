@@ -1,0 +1,58 @@
+// Write your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{   short  t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        vector <long> A(n,0);
+        vector <int> r_min(n), l_min(n);
+        for(int i=0; i<n; i++)  cin>>A[i];
+      
+        
+        stack <int> s;
+        s.push(A.size()-1);
+        r_min[A.size()-1]=-1;
+        for(int i=A.size()-2; i>=0; i--)
+        {  while(s.empty()!=1&&A[s.top()]>=A[i])
+              s.pop();
+            if(s.empty()==1)
+            {  r_min[i]=-1;
+            }
+            else  r_min[i]=s.top();
+                s.push(i);
+        }
+        
+        while(s.empty()==0) s.pop();
+        
+        s.push(0);
+        l_min[0]=-1;
+        for(int i=1; i<A.size(); i++)
+        {  while(s.empty()!=1&&A[s.top()]>=A[i])
+              s.pop();
+            if(s.empty()==1)
+            { l_min[i]=-1;
+            }
+             else l_min[i]=s.top();
+                s.push(i);
+        }
+      
+        long long ans=0;
+        for(int i=0; i<n; i++)
+        { int l,r;
+          long long temp;
+          if(l_min[i]==-1) l=0;
+          else l=l_min[i]+1;
+          if(r_min[i]==-1) r=A.size()-1;
+          else r=r_min[i]-1;
+          temp= (r-l+1)*A[i];
+          if(temp>ans) ans=temp;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}
