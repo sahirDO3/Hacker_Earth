@@ -1,0 +1,38 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{   int t;
+   cin>>t;
+   while(t--)
+   {
+       int n;
+       cin>>n;
+       string s;
+       cin>>s;
+       int start=0, end=0, count_k=0;
+       for(int i=0; i<s.length(); i++)
+       { if(s[i]=='K')
+           count_k++;
+       }
+       int tempK=0;
+       while(1)
+       {   if(s[end]=='K') tempK++;
+           if(end==(count_k-1)) break;
+           else end++;
+       }
+       
+       int ans=count_k-tempK;
+        while(1)
+       {  if(s[start]=='K') tempK--;
+          start++;
+          if(start==s.length()) break;
+          if(s[(end+1)%s.length()]=='K') tempK++;
+          end=(end+1)%s.length();
+          ans=min(ans, count_k-tempK); 
+       }
+       cout<<ans<<endl;
+   }
+    return 0;
+}
