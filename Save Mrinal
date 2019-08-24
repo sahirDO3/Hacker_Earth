@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{   int n; 
+    cin>>n;
+    vector <int> A(n);
+    
+    for(int i=0; i<n; i++)
+    cin>>A[i];
+    map <pair<int,int>, int> dp;
+    int q;
+    cin>>q;
+    for(int i=0; i<q; i++)
+    { pair <int, int> query;
+      int a, b;
+      cin>>a>>b;
+      query=make_pair(a-1,b-1);
+      if(dp.find(query)==dp.end())
+     {  set <int> elements;
+       for(int j=query.first; j<=query.second; j++)
+       {
+          elements.insert(A[j]);
+       }
+       dp[query]=elements.size();
+     }
+     cout<<dp[query]<<endl;
+    }
+    return 0;
+}
