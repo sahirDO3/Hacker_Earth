@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{  int t;
+   cin>>t;
+   while(t--)
+   {
+       long long int n;
+       cin>>n;
+       vector <long long int> H(n,0);
+       for(long long int i=0; i<n; i++) cin>>H[i];
+       vector <long long int> frnt(n,0), back(n,0);
+       stack <long long int> s;
+       long long int ans=1, maxscore=0;
+       for(long long int i=0; i<n; i++)
+       {
+           while(s.empty()==0&&H[s.top()]<H[i])
+           s.pop();
+           if(s.empty()==1) frnt[i]=0;
+           else frnt[i]=s.top();
+           s.push(i);
+       }
+       stack <long long int> s2;
+       for(long long int i=n-1; i>=0; i--)
+       {
+           while(s2.empty()==0&&H[s2.top()]<H[i])
+           s2.pop();
+           if(s2.empty()==1) back[i]=n-1;
+           else back[i]=s2.top();
+           s2.push(i);
+       }
+       
+       
+       for(long long int i=0; i<n; i++)
+       {
+           long long int a, b;
+           a=max(0ll,i-frnt[i]);
+           b=max(0ll,back[i]-i);
+           long long int score=(((a+b)%1000000007)*((i+1)%1000000007))%1000000007;
+           if(score>maxscore) 
+           {
+               maxscore=score;
+               ans=i+1;
+           }
+       }
+       cout<<ans<<endl;
+       
+   }
+    return 0;
+}
