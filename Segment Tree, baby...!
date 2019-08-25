@@ -1,0 +1,88 @@
+//O(n*q) approach
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{  int n;
+    cin>>n;
+    vector <int> A(n,0);
+    int q;
+    cin>>q;
+    vector <vector <int>> query(q);
+    for(int i=0;i<q; i++)
+    {
+        int a, b, c;
+        cin>>a>>b>>c;
+        query[i].push_back(a);query[i].push_back(b);query[i].push_back(c);
+        for(int j=a-1;j<b; j++ )
+        A[j]+=c;
+    }
+    vector <int> maxx;
+    for(int i=0; i<q; i++)
+    { int tempmax=INT_MIN;
+      for(int j=0; j<n; j++)
+      { if(j>=(query[i][0]-1)&&j<=(query[i][1]-1))
+         {
+            tempmax=max(tempmax, A[j]-query[i][2]);
+         }
+          else tempmax=max(tempmax, A[j]);
+      }
+      maxx.push_back(tempmax);
+    }
+    int ans=INT_MAX;
+    for(int j=0; j<maxx.size(); j++)
+    ans=min(ans, maxx[j]);
+    cout<<ans<<endl;
+    
+    return 0;
+}
+
+
+
+//O(n+q) approach
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{   int n;
+    cin>>n;
+    int q;
+    cin>>q;
+    vector <int> A(n,0);
+    vector <vector <int>> query(q);
+    for(int i=0;i<q; i++)
+    {   int a, b, c;
+        cin>>a>>b>>c;
+        query[i].push_back(a);query[i].push_back(b);query[i].push_back(c);
+        A[a-1]+=c; 
+    if(b<n)  A[b]-=c;
+    }
+    for(int i=1; i<n; i++)
+    {
+        A[i]+=A[i-1];
+    }
+    vector <int > pre(n,0),post(n,0);
+    pre[0]=A[0];
+    post[n-1]=A[n-1];
+    for(int i=1; i<n; i++)
+    pre[i]=max(pre[i-1], A[i]);
+    for(int i=n-2; i>=0; i--)
+    post[i]=max(post[i+1], A[i]);
+    int maxval=pre[n-1];
+    int ans=maxval;
+    for(int i=0; i<q; i++)
+    {   int a=query[i][0]-2;
+        int b=query[i][1];
+        int tempa, tempb;
+        if(a>=0) tempa=pre[a];
+        else tempa=INT_MIN;
+        if(b<n) tempb=post[b];
+        else tempb=INT_MIN;
+
+        int temp=max((maxval-query[i][2]), max(tempa, tempb));
+        ans=min(ans, temp);
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+
