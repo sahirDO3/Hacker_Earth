@@ -1,0 +1,46 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int anscalc(unordered_map <long long int, long long int> d)
+{
+        long long ans=0;
+        auto it=d.begin();
+        while(it!=d.end())
+        {
+            long long temp=it->second;
+            it++;
+            ans+=(temp*(temp-1))/2;
+        }
+        return ans;
+}
+
+int main()
+{   int t;
+    cin>>t;
+    while(t--)
+    {   unordered_map <long long int, long long int> d1, d2;
+       long long  n;
+        cin>>n;
+      set < pair<int, int> > A;
+        for(int i=0; i<n; i++)
+        {   int x, y;
+            cin>>x>>y;
+            x--; y--;
+            pair <int, int> temp; 
+            temp=make_pair(x,y);
+          if(A.find(temp)==A.end())
+            {d1[x-y]++;
+             d2[x+y]++;
+             A.insert(temp);
+            }
+        }
+        
+        long long ans=0;
+        ans+=anscalc(d1);
+        ans+=anscalc(d2);
+        
+        cout<<ans<<endl;
+    }
+    return 0;
+}
