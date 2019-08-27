@@ -1,0 +1,84 @@
+/*
+// Sample code to perform I/O:
+
+cin >> name;                            // Reading input from STDIN
+cout << "Hi, " << name << ".\n";        // Writing output to STDOUT
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+*/
+
+// Write your code here
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n, m;
+        cin>>n>>m;
+    
+        int sx, sy;
+        cin>>sx>>sy;
+        sx--; sy--;
+        int x, y;
+        cin>>x>>y;
+        x--; y--;
+        
+        if(sx==0&&sy==0)
+        {   if((n-1)%2==0&&x==n-1&&y==m-1)  cout<<"Over"<<endl;
+            else if((n-1)%2==1&&x==n-1&&y==0) cout<<"Over"<<endl;
+            else if((x%2==0&&y==m-1)||(x%2==1&&y==0)) cout<<"Back"<<endl;
+            else if(x%2==0) cout<<"Right"<<endl;
+            else cout<<"Left"<<endl;
+        }
+        else if(sx==0&&sy==m-1)
+        {   if((n-1)%2==1&&x==n-1&&y==m-1)  cout<<"Over"<<endl;
+            else if((n-1)%2==0&&x==n-1&&y==0) cout<<"Over"<<endl;
+            else if((x%2==1&&y==m-1)||(x%2==0&&y==0)) cout<<"Back"<<endl;
+             else if(x%2==1) cout<<"Right"<<endl;
+            else cout<<"Left"<<endl;
+        }
+        
+        
+    
+        else if(sx==n-1&&sy==0)
+        {  if((n-1)%2==0)
+           { if(x==0&&y==m-1) cout<<"Over"<<endl;
+             else if((y==0&&(x%2==1))||(y==m-1&&(x%2==0))) cout<<"Front\n";
+             else if(x%2==0) cout<<"Right\n";
+             else cout<<"Left\n";
+           }
+           else
+           { if(x==0&&y==0) cout<<"Over"<<endl;
+             else if((y==m-1&&(x%2==1))||(y==0&&(x%2==0))) cout<<"Front\n";
+             else if(x%2==0) cout<<"Left\n";
+             else cout<<"Right\n";
+           }
+        }
+        
+        
+        
+        
+        else 
+        {   if((n-1)%2==0)
+            {  if(x==0&&y==0) cout<<"Over"<<endl;
+             else if((y==m-1&&(x%2==1))||(y==0&&(x%2==0))) cout<<"Front\n";    
+               else if(x%2==0) cout<<"Left\n";
+             else cout<<"Right\n";
+            }
+            else 
+            { if(x==0&&y==m-1) cout<<"Over"<<endl;
+               else if((y==0&&(x%2==1))||(y==m-1&&(x%2==0))) cout<<"Front\n";
+                else if(x%2==0) cout<<"Right\n";
+             else cout<<"Left\n";
+            }
+            
+        }
+        
+    }
+    return 0;
+}
+
