@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main()
+{
+    int n,m,k;
+    cin>>n>>m>>k;
+    
+    vector <int> dp(m,0);
+    vector <vector <int>> A(n,dp);
+    
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<m; j++)
+        cin>>A[i][j];
+        
+    }
+    
+    
+    for(int h=0; h<k; h++)
+    {
+        int r,c,s,d;
+        cin>>r>>c>>s>>d;
+        
+        for(int i=r-1; i<r-1+s; i++)
+        {
+            for(int j=c-1; j<c-1+s; j++)
+            {
+                A[i][j]+=d;
+            }
+        }
+    }
+    
+    
+    
+    for(int i=0; i<n; i++)
+    {   
+        for(int j=0;j<m; j++)
+        cout<<A[i][j]<<" ";
+        cout<<endl;
+    }
+    
+    return 0;
+}
